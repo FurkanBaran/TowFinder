@@ -1,7 +1,7 @@
 
 # TowFinder
 
-TowFinder is a C# project designed to help users find nearby tow operators based on city and district selection. The project utilizes ASP.NET Core 8.0 and Entity Framework Core for a robust and scalable application. This README provides a comprehensive guide to set up and run the project.
+TowFinder is a C# project designed to help users find nearby tow operators based on city and district selection. The project utilizes ASP.NET Core 8.0 and Entity Framework Core for a robust and scalable application. The application follows the MVC (Model-View-Controller) pattern to separate concerns and ensure a modular and maintainable codebase. This README provides a comprehensive guide to set up and run the project.
 
 ## Project Overview
 
