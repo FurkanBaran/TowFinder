@@ -21,7 +21,7 @@ public class TowOperatorController : Controller
 
     public IActionResult Register()
     {
-        _signInManager.SignOutAsync(); // Eðer giriþ yapýlmýþsa çýkýþ yap
+        _signInManager.SignOutAsync(); // EÄŸer giriÅŸ yapÄ±lmÄ±ÅŸsa Ã§Ä±kÄ±ÅŸ yap
         return View();
     }
 
@@ -34,7 +34,7 @@ public class TowOperatorController : Controller
 
             if (existingUser != null)
             {
-                ModelState.AddModelError("Username", "Kullanýcý adý zaten alýnmýþ.");
+                ModelState.AddModelError("Username", "KullanÄ±cÄ± adÄ± zaten alÄ±nmÄ±ÅŸ.");
                 return View(towOperatorUser);
             }
 
@@ -42,7 +42,7 @@ public class TowOperatorController : Controller
 
             if (towOperatorUser.Username.ToLower() == "admin")
             {
-                ModelState.AddModelError("Username", "'admin' kullanýcý adý kullanýlamaz.");
+                ModelState.AddModelError("Username", "'admin' kullanÄ±cÄ± adÄ± kullanÄ±lamaz.");
                 return View(towOperatorUser);
             }
 
@@ -82,7 +82,7 @@ public class TowOperatorController : Controller
         }
         else
         {
-            ModelState.AddModelError(string.Empty, "Geçersiz giriþ.");
+            ModelState.AddModelError(string.Empty, "GeÃ§ersiz giriÅŸ.");
         }
         return View();
     }
@@ -120,7 +120,7 @@ public class TowOperatorController : Controller
                 }
             }
 
-            ModelState.AddModelError(string.Empty, "Geçersiz kullanýcý adý veya þifre.");
+            ModelState.AddModelError(string.Empty, "GeÃ§ersiz kullanÄ±cÄ± adÄ± veya ÅŸifre.");
         }
         return View(model);
     }
@@ -141,7 +141,7 @@ public class TowOperatorController : Controller
 
 
     [HttpGet("TowOperator/Profile/{id}")]
-    public async Task<IActionResult> Profile(int id) // verilen id'ye sahip TowOperator'ün profilini göster (sadece kendi profilini görebilir)
+    public async Task<IActionResult> Profile(int id) // verilen id'ye sahip TowOperator'Ã¼n profilini gÃ¶ster (sadece kendi profilini gÃ¶rebilir)
     {
         var towOperator = await _context.TowOperators.FindAsync(id);
         if (towOperator == null)
@@ -152,7 +152,7 @@ public class TowOperatorController : Controller
         var user = await _userManager.GetUserAsync(User);
         if (user == null || towOperator.Username != user.UserName)
         {
-            return Forbid(); // Yetkisiz eriþim
+            return Forbid(); // Yetkisiz eriÅŸim
         }
 
         var model = new EditProfileViewModel
@@ -161,7 +161,7 @@ public class TowOperatorController : Controller
             Phone = towOperator.Phone,
             City = towOperator.City,
             District = towOperator.District,
-            ApprovalStatus = towOperator.ApprovalStatus ? "Onaylandý" : "Onay Bekliyor"
+            ApprovalStatus = towOperator.ApprovalStatus ? "OnaylandÄ±" : "Onay Bekliyor"
         };
 
         return View(model);
@@ -170,7 +170,7 @@ public class TowOperatorController : Controller
 
 
 
-    // Profil görüntüleme
+    // Profil gÃ¶rÃ¼ntÃ¼leme
     public async Task<IActionResult> Profile()
     {
         var user = await _userManager.GetUserAsync(User);
@@ -192,13 +192,13 @@ public class TowOperatorController : Controller
             Phone = towOperator.Phone,
             City = towOperator.City,
             District = towOperator.District,
-            ApprovalStatus = towOperator.ApprovalStatus ? "Onaylandý" : "Onay Bekliyor"
+            ApprovalStatus = towOperator.ApprovalStatus ? "OnaylandÄ±" : "Onay Bekliyor"
         };
         return View(model);
     }
 
 
-    // Profil düzenleme sayfasýný göster
+    // Profil dÃ¼zenleme sayfasÄ±nÄ± gÃ¶ster
     [HttpGet]
     public async Task<IActionResult> EditProfile()
     {
@@ -222,13 +222,13 @@ public class TowOperatorController : Controller
             Phone = towOperator.Phone,
             City = towOperator.City,
             District = towOperator.District,
-            ApprovalStatus = towOperator.ApprovalStatus?"Onaylandý" : "Onay Bekliyor"
+            ApprovalStatus = towOperator.ApprovalStatus?"OnaylandÄ±" : "Onay Bekliyor"
         };
 
         return View(model);
     }
 
-    // Profil düzenleme iþlemi
+    // Profil dÃ¼zenleme iÅŸlemi
     [HttpPost]
     public async Task<IActionResult> EditProfile(EditProfileViewModel model)
     {
