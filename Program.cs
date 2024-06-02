@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();  // Session ekleyin
 
-// DbContext'i MySQL ile yapýlandýrýn
+// DbContext'i MySQL ile yapılandırın
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
     new MySqlServerVersion(new Version(8, 0, 23))));
@@ -40,11 +40,12 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 var app = builder.Build();
 
-// Rol ve admin kullanýcý ekleyin
+
+// Rol ve admin kullanıcı ekleyin
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    try // Hata oluþursa uygulamayý durdurma
+    try // Hata oluþursa uygulamayı durdurma
     {
         var context = services.GetRequiredService<ApplicationDbContext>();
         context.Database.Migrate();
@@ -57,7 +58,8 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// HTTP isteði yapýlandýrmasýný
+
+// HTTP isteği yapılandırması
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -89,7 +91,8 @@ async Task SeedAdminUser(IServiceProvider serviceProvider)
         await roleManager.CreateAsync(new IdentityRole("Admin"));
     }
 
-    if (!await roleManager.RoleExistsAsync("TowOperator")) // TowOperator rolü yoksa oluþtur
+
+    if (!await roleManager.RoleExistsAsync("TowOperator")) // TowOperator rolü yoksa oluştur
     {
         await roleManager.CreateAsync(new IdentityRole("TowOperator"));
     }
@@ -102,15 +105,17 @@ async Task SeedAdminUser(IServiceProvider serviceProvider)
     };
 
     var user = await userManager.FindByNameAsync(adminUser.UserName);
-    if (user == null) // Kullanýcý yoksa oluþtur
+
+    if (user == null) // Kullanıcı yoksa oluþtur
     {
-        var result = await userManager.CreateAsync(adminUser, "Admin123!"); // Admin123! þifresini kullan
+        var result = await userManager.CreateAsync(adminUser, "Admin123!"); // Admin123! şifresini kullan
         if (result.Succeeded)
         {
             await userManager.AddToRoleAsync(adminUser, "Admin"); // Admin rolünü ata
         }
     }
-    else // Kullanýcý varsa rolü kontrol et
+
+    else // Kullanıcı varsa rolü kontrol et
     {
         if (!await userManager.IsInRoleAsync(user, "Admin"))
         {
