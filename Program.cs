@@ -40,12 +40,15 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 var app = builder.Build();
 
+
 // Rol ve admin kullanıcı ekleyin
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     try // Hata oluþursa uygulamayı durdurma
     {
+        var context = services.GetRequiredService<ApplicationDbContext>();
+        context.Database.Migrate();
         await SeedAdminUser(services);
     }
     catch (Exception ex)
@@ -54,6 +57,7 @@ using (var scope = app.Services.CreateScope())
         throw;
     }
 }
+
 
 // HTTP isteği yapılandırması
 if (!app.Environment.IsDevelopment())
@@ -87,6 +91,7 @@ async Task SeedAdminUser(IServiceProvider serviceProvider)
         await roleManager.CreateAsync(new IdentityRole("Admin"));
     }
 
+
     if (!await roleManager.RoleExistsAsync("TowOperator")) // TowOperator rolü yoksa oluştur
     {
         await roleManager.CreateAsync(new IdentityRole("TowOperator"));
@@ -100,6 +105,7 @@ async Task SeedAdminUser(IServiceProvider serviceProvider)
     };
 
     var user = await userManager.FindByNameAsync(adminUser.UserName);
+
     if (user == null) // Kullanıcı yoksa oluþtur
     {
         var result = await userManager.CreateAsync(adminUser, "Admin123!"); // Admin123! şifresini kullan
@@ -108,6 +114,7 @@ async Task SeedAdminUser(IServiceProvider serviceProvider)
             await userManager.AddToRoleAsync(adminUser, "Admin"); // Admin rolünü ata
         }
     }
+
     else // Kullanıcı varsa rolü kontrol et
     {
         if (!await userManager.IsInRoleAsync(user, "Admin"))
