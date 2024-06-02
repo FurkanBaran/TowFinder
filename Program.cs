@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();  // Session ekleyin
 
-// DbContext'i MySQL ile yapýlandýrýn
+// DbContext'i MySQL ile yapÃ½landÃ½rÃ½n
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
     new MySqlServerVersion(new Version(8, 0, 23))));
@@ -40,11 +40,11 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 var app = builder.Build();
 
-// Rol ve admin kullanýcý ekleyin
+// Rol ve admin kullanÄ±cÄ± ekleyin
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    try // Hata oluþursa uygulamayý durdurma
+    try // Hata oluÃ¾ursa uygulamayÃ½ durdurma
     {
         await SeedAdminUser(services);
     }
@@ -55,7 +55,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// HTTP isteði yapýlandýrmasýný
+// HTTP isteÄŸi yapÄ±landÄ±rmasÄ±
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -82,12 +82,12 @@ async Task SeedAdminUser(IServiceProvider serviceProvider)
     var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
     var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-    if (!await roleManager.RoleExistsAsync("Admin")) // Admin rolü yoksa oluþtur
+    if (!await roleManager.RoleExistsAsync("Admin")) // Admin rolÃ¼ yoksa oluÃ¾tur
     {
         await roleManager.CreateAsync(new IdentityRole("Admin"));
     }
 
-    if (!await roleManager.RoleExistsAsync("TowOperator")) // TowOperator rolü yoksa oluþtur
+    if (!await roleManager.RoleExistsAsync("TowOperator")) // TowOperator rolÃ¼ yoksa oluÅŸtur
     {
         await roleManager.CreateAsync(new IdentityRole("TowOperator"));
     }
@@ -100,15 +100,15 @@ async Task SeedAdminUser(IServiceProvider serviceProvider)
     };
 
     var user = await userManager.FindByNameAsync(adminUser.UserName);
-    if (user == null) // Kullanýcý yoksa oluþtur
+    if (user == null) // KullanÃ½cÃ½ yoksa oluÃ¾tur
     {
-        var result = await userManager.CreateAsync(adminUser, "Admin123!"); // Admin123! þifresini kullan
+        var result = await userManager.CreateAsync(adminUser, "Admin123!"); // Admin123! ÅŸifresini kullan
         if (result.Succeeded)
         {
-            await userManager.AddToRoleAsync(adminUser, "Admin"); // Admin rolünü ata
+            await userManager.AddToRoleAsync(adminUser, "Admin"); // Admin rolÃ¼nÃ¼ ata
         }
     }
-    else // Kullanýcý varsa rolü kontrol et
+    else // KullanÄ±cÄ± varsa rolÃ¼ kontrol et
     {
         if (!await userManager.IsInRoleAsync(user, "Admin"))
         {
