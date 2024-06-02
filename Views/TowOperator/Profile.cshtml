@@ -1,0 +1,24 @@
+﻿@model TowFinder.ViewModels.EditProfileViewModel
+
+@section Title {
+    @Model.Name
+}
+
+<div class="container mt-5">
+    <div class="row border  p-4 shadow " style="border-radius: 21px;    background: #ba68c857;">
+        <div class="col-md-6">
+            <h2>@Model.Name - Profiliniz</h2>
+            <hr>
+            <br />
+            <p><strong>İsim:</strong> @Model.Name</p>
+            <p><strong>Telefon:</strong> @Model.Phone</p>
+            <p><strong>İl:</strong> @Model.City</p>
+            <p><strong>İlçe:</strong> @Model.District</p>
+            <p><strong>Onay Durumu:</strong> @Model.ApprovalStatus</p>
+            <a class="btn btn-primary" asp-action="EditProfile">Bilgileri düzenle</a>
+        </div>
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+            <img src="~/images/tow.svg" class="img-fluid rounded" alt="Profil Resmi">
+        </div>
+    </div>
+</div>

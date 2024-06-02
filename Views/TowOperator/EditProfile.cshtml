@@ -1,0 +1,42 @@
+﻿@model TowFinder.ViewModels.EditProfileViewModel
+@section Title {
+    Profil Düzenle
+}
+<div class="container mt-5">
+    <div class="row border  p-4 shadow " style="border-radius: 21px;background: #ba68c857;">
+        <div class="col-md-6">
+        <h2>Profil Düzenle</h2>
+        <form asp-action="EditProfile" method="post">
+            <div class="form-group">
+                <label asp-for="Name">İsim</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone">Telefon</label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="City">İl</label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="District">İlçe</label>
+                <input asp-for="District" class="form-control" />
+                <span asp-validation-for="District" class="text-danger"></span>
+            </div>
+
+
+            <input asp-for="ApprovalStatus" type="hidden" value="false" />
+            <br />
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+        </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

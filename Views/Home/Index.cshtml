@@ -1,0 +1,124 @@
+﻿@model TowFinder.ViewModels.HomeViewModel
+
+
+@section Title {
+    AcilÇekici
+}
+<div class="container-fluid header-image">
+        <div class="search-container text-center">
+            <h1> Yakındaki Çekici Opertörlerini Bulun </h1>
+            <form id="searchForm">
+                <div class="row mt-3">
+                    <div class="col-md-5">
+                        <select class="form-control" id="citySelect" name="City" asp-for="City">
+                            <option value="">İl Seçin</option>
+                            @foreach (var city in Model.Cities)
+                            {
+                                <option value="@city">@city</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <select class="form-control" id="districtSelect" name="District" asp-for="District">
+                            <option value="">İlçe Seçin</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-primary search-btn d-block" id="searchBtn">Bul</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container results-table" id ="resultDiv">
+        <h3>Sonuçlar</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>İsim</th>
+                    <th>Telefon</th>
+                    <th>İl</th>
+                    <th>İlçe</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody id="results">
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#citySelect').change(function () {
+                var city = $(this).val();
+                $.getJSON('/Home/GetDistricts', { city: city }, function (districts) {
+                    var $districtSelect = $('#districtSelect');
+                    $districtSelect.empty();
+                    $districtSelect.append('<option value="">Tüm İlçeler</option>');
+                    $.each(districts, function (index, district) {
+                        $districtSelect.append('<option value="' + district + '">' + district + '</option>');
+                    });
+                });
+            });
+
+            $('#searchBtn').click(function () {
+                var city = $('#citySelect').val();
+                var district = $('#districtSelect').val();
+                $.getJSON('/Home/GetTowOperators', { city: city, district: district }, function (towOperators) {
+                    var $results = $('#results');
+                    $results.empty();
+                    $.each(towOperators, function (index, operator) {
+                        $results.append('<tr><td>' + operator.name + '</td><td>' + operator.phone + '</td><td>' + operator.city + '</td><td>' + operator.district + '</td>' + '<td><a href="tel:' + operator.phone + '"><button type="button" class="btn btn-primary"><i class="fas fa-phone"></i> Ara</button></a></td></tr>');
+                    });
+                });
+            });
+        });
+    </script>
+    <style>
+        }
+
+        .header-image {
+            background: url('../images/header.jpg') no-repeat center center;
+            background-size: cover;
+            height: 700px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-container {
+            min-width: 67%;
+            min-height: 200px;
+            background: rgba(255, 255, 255, 0.23);
+            display: inline;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(6.7px);
+            font-size: 2.5em;
+            padding: 2em;
+            padding-bottom: 5em;
+            text-shadow: -1px 3px 5px black;
+        }
+
+            .search-container h1 {
+                background: rgb(4 4 4 / 56%);
+                backdrop-filter: blur(6.7px);
+                display: inline;
+                border-radius: 16px;
+                padding: 5px 20px;
+                box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);
+            }
+
+        .search-btn {
+            width: 100%;
+        }
+
+        .results-table {
+            margin-top: 20px;
+        }
+    </style>
+

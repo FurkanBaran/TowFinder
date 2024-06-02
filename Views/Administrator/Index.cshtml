@@ -1,0 +1,42 @@
+﻿@model IEnumerable<TowOperator>
+
+<div class="container mt-5">
+    <div class="row border  p-4 shadow " style="       border-radius: 21px; background: #ffffff;">
+<table class="table">
+    <thead>
+        <tr>
+            <th>İsim</th>
+            <th>Telefon</th>
+            <th>İL</th>
+            <th>İlçe</th>
+            <th>Kabul durumu</th>
+            <th>İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Phone</td>
+                <td>@item.City</td>
+                <td>@item.District</td>
+                <td>@item.ApprovalStatus</td>
+                <td>
+                    @if (!item.ApprovalStatus)
+                    {
+                        <a asp-action="Approve" asp-route-id="@item.TowOperatorID" class="btn btn-success">Onayla</a>
+                        <a asp-action="Delete" asp-route-id="@item.TowOperatorID" class="btn btn-danger">Sil</a>
+                    }
+                    else
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.TowOperatorID" class="btn btn-danger">Sil</a>
+                    }
+                    </td>
+            </tr>
+        }
+    </tbody>
+</table>
+        </div>
+    </div>
+

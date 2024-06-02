@@ -1,0 +1,68 @@
+﻿<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm px-lg-5">
+    <div class="container-fluid">
+        <img src="~/images/logo.svg" alt="AcilÇekici" width="50" height="50" class="d-inline-block align-text-top">
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+            AcilÇekici
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse px-lg-5" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Home" asp-action="Index">Anasayfa</a>
+                </li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Administrator" asp-action="Index">Yönetici Paneli</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="TowOperator" asp-action="Profile">Profil</a>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="TowOperator" asp-action="Register">Çekici Operatör Kaydı</a>
+                    </li>
+                }
+
+            </ul>
+            <ul class="navbar-nav">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <form asp-controller="Administrator" asp-action="Logout" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-outline-danger nav-link px-3">Çıkış</button>
+                            </form>
+                        </li>
+
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <form asp-controller="TowOperator" asp-action="Logout" method="post" class="d-inline">
+                                <button type="submit" class="btn  btn-outline-danger nav-link px-3 btn-hover-white">Çıkış</button>
+                            </form>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="btn btn-outline-primary nav-link px-3 btn-hover-white" asp-controller="TowOperator" asp-action="Login">Giriş</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>

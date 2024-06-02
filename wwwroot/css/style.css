@@ -1,0 +1,79 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+#tow {
+    border: solid;
+    margin-bottom: 15px;
+    display: block;
+    margin-right: 20%;
+    margin-left: 20%;
+}
+
+.header-image {
+    background: url('../images/header.jpg') no-repeat center center;
+    background-size: cover;
+    height: 700px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-container {
+    min-width: 67%;
+    min-height: 200px;
+    background: rgba(255, 255, 255, 0.23);
+    display: inline;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6.7px);
+    font-size: 2.5em;
+    padding: 2em;
+    padding-bottom: 5em;
+    text-shadow: -1px 3px 5px black;
+}
+
+.search-container h1 {
+    background: rgb(4 4 4 / 56%);
+    backdrop-filter: blur(6.7px);
+    display: inline;
+    border-radius: 16px;
+    padding: 5px 20px;
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);
+}
+
+.search-btn {
+    width: 100%;
+}
+
+.results-table {
+    margin-top: 20px;
+}
+body {
+    background-color: #ffeedf;
+}
+
+
+.btn:hover {
+    color: white!important;
+}
