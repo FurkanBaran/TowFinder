@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();  // Session ekleyin
 
-// DbContext'i MySQL ile yapýlandýrýn
+// DbContext'i MySQL ile yapılandırın
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
     new MySqlServerVersion(new Version(8, 0, 23))));
@@ -44,7 +44,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    try // Hata oluþursa uygulamayý durdurma
+    try // Hata oluþursa uygulamayı durdurma
     {
         await SeedAdminUser(services);
     }
@@ -100,7 +100,7 @@ async Task SeedAdminUser(IServiceProvider serviceProvider)
     };
 
     var user = await userManager.FindByNameAsync(adminUser.UserName);
-    if (user == null) // Kullanýcý yoksa oluþtur
+    if (user == null) // Kullanıcı yoksa oluþtur
     {
         var result = await userManager.CreateAsync(adminUser, "Admin123!"); // Admin123! şifresini kullan
         if (result.Succeeded)
