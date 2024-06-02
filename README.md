@@ -107,6 +107,15 @@ Open your browser and navigate to `http://localhost:5000` to see the application
 - **Data**: Contains the application's DbContext and configuration for Entity Framework Core.
 - **Entity**: Defines the application's data models and entity configurations.
 
+## Screenshots
+
+![Ekran görüntüsü 2024-06-02 190652](https://github.com/FurkanBaran/TowFinder/assets/21145014/57d12f29-b3ba-4779-bb60-bd49a69a3708)
+![Ekran görüntüsü 2024-06-02 190718](https://github.com/FurkanBaran/TowFinder/assets/21145014/b002b03b-f9ee-4ede-a2e7-8c2c5c20e802)
+![Ekran görüntüsü 2024-06-02 190835](https://github.com/FurkanBaran/TowFinder/assets/21145014/3076dc65-0bc8-4d72-9b51-9a4b0d0a8b4d)
+![Ekran görüntüsü 2024-06-02 190823](https://github.com/FurkanBaran/TowFinder/assets/21145014/07c5e360-650c-4ca9-8ebc-41acf46fe116)
+
+
+
 ## Contribution
 
 Contributions are welcome! If you have any ideas, suggestions, or issues, please open an issue or submit a pull request.
