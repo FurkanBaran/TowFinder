@@ -10,8 +10,43 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/reusable-dotnet.yml
-    with:
-      db_string: ${{ secrets.DB_STRING }}
-    secrets:
-      DB_STRING: ${{ secrets.DB_STRING }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v2
+
+    - name: Set up .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0.x' # Update this to your required .NET version
+
+    - name: Install dotnet tools
+      run: dotnet tool install --global dotnet-ef
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Apply EF Core migrations
+      env:
+        ASPNETCORE_ENVIRONMENT: Development
+        ConnectionStrings__DefaultConnection: ${{ secrets.DB_STRING }}
+      run: |
+        export PATH="$PATH:~/.dotnet/tools"
+        dotnet ef database update
+
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+
+    - name: Publish
+      run: dotnet publish --configuration Release --no-restore --output ./publish
+
+    - name: Upload artifact for deployment
+      uses: actions/upload-artifact@v2
+      with:
+        name: published_app
+        path: ./publish
