@@ -6,13 +6,15 @@ using TowFinder.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection") 
+                           ?? Configuration.GetConnectionString("DefaultConnection");
 // Servisleri ekleyin.
 builder.Services.AddControllersWithViews();
-builder.Services.AddSession();  // Session ekleyin
+builder.Services.AddSession();  // Session ekle
 
-// DbContext'i MySQL ile yapılandırın
+// DbContext'i MySQL ile yapılandır
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
+    options.UseMySql(connectionString,
     new MySqlServerVersion(new Version(8, 0, 23))));
 
 // Identity ve Cookie Authentication ekleyin
@@ -41,7 +43,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 var app = builder.Build();
 
 
-// Rol ve admin kullanıcı ekleyin
+// Rol ve admin kullanıcı ekle
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -106,7 +108,7 @@ async Task SeedAdminUser(IServiceProvider serviceProvider)
 
     var user = await userManager.FindByNameAsync(adminUser.UserName);
 
-    if (user == null) // Kullanıcı yoksa oluþtur
+    if (user == null) // Kullanıcı yoksa oluştur
     {
         var result = await userManager.CreateAsync(adminUser, "Admin123!"); // Admin123! şifresini kullan
         if (result.Succeeded)
