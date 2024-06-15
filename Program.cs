@@ -7,7 +7,7 @@ using TowFinder.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection") 
-                           ?? Configuration.GetConnectionString("DefaultConnection");
+                           ?? builder.Configuration.GetConnectionString("DefaultConnection");
 // Servisleri ekleyin.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();  // Session ekle
