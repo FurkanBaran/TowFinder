@@ -108,7 +108,7 @@ Open your browser and navigate to `http://localhost:5000` to see the application
 - **Entity**: Defines the application's data models and entity configurations.
 
 ## Deployed on AWS EC2 Ubuntu 22.04:
-http://towfinder.furkanbaran.com:5000/[http://towfinder.furkanbaran.com:5000/]
+ [https://towfinder.furkanbaran.com:5000/]
 
 ## Screenshots
 
