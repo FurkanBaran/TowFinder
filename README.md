@@ -107,6 +107,9 @@ Open your browser and navigate to `http://localhost:5000` to see the application
 - **Data**: Contains the application's DbContext and configuration for Entity Framework Core.
 - **Entity**: Defines the application's data models and entity configurations.
 
+## Deployed on AWS EC2 Ubuntu 22.04:
+http://towfinder.furkanbaran.com:5000/[http://towfinder.furkanbaran.com:5000/]
+
 ## Screenshots
 
 ![Ekran görüntüsü 2024-06-02 190652](https://github.com/FurkanBaran/TowFinder/assets/21145014/57d12f29-b3ba-4779-bb60-bd49a69a3708)
