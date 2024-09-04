@@ -22,6 +22,17 @@ This project was developed as my first C# project, aiming to meet the specific r
 - **Authentication and Authorization**: Secure login for admins and tow operators.
 - **Dynamic Content Loading**: Use of AJAX to dynamically load districts based on city selection.
 
+## Run Locally with Docker Compose
+Build and launch TowFinder in a local environment using Docker Compose.
+
+```bash
+git clone https://github.com/furkanbaran/TowFinder.git
+cd TowFinder
+docker compose up -d
+```
+Once the services are up, visit the application in your browser at: http://localhost:8080/
+
+
 ## Setup and Installation
 
 Follow these steps to set up and run the project on your local machine.
