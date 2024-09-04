@@ -1,0 +1,23 @@
+services:
+  db:
+    image: mysql:latest
+    restart: unless-stopped
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: towfinder
+      MYSQL_USER: towfinder
+      MYSQL_PASSWORD: changeme!
+      MYSQL_ROOT_PASSWORD: changeme2!
+  towfinder:
+    build:
+      context: .
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    environment:
+      ConnectionStrings__DefaultConnection: Server=db;Database=towfinder;User=towfinder;Password=changeme!;
+    depends_on:
+      - db
+volumes:
+  mysql-data:
