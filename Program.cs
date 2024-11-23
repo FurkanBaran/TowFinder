@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using TowFinder.Models;
 using TowFinder.Data;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection") 
-                           ?? builder.Configuration.GetConnectionString("DefaultConnection");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 // Servisleri ekleyin.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();  // Session ekle
